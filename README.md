@@ -44,7 +44,9 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
       <div>
         <p>
           GCD: Multi-core 및 기타 대칭형 멀티프로세싱 시스템을 사용하는 시스템에 대한 애플리케이션 지원을 최적화하기 위한 기술 <br>
-          &emsp;&emsp;&emsp;<b>즉, OS 레벨의 동시성/멀티스레딩을 위한 라이브러리로, Dispatch Framework를 통해 사용 가능</b>
+          <blockquote>
+            <b>즉, OS 레벨의 동시성/멀티스레딩을 위한 라이브러리로, Dispatch Framework를 통해 사용 가능</b>
+          </blockquote>
         </p>
         <ul>
           <li>
@@ -67,6 +69,47 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 <li>Global Queue: GCD가 제공하는 글로벌 동시 큐로, 여러 작업을 동시에 실행할 수 있는 큐 (e.g. <code>DispatchQueue.global(qos:)</code>)</li>
                 <li>Custom Queue: 사용자 정의 직렬/동시 큐 (e.g. <code>DispatchQueue(label:, attributes:)</code>)</li>
               </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</details>
+
+<details>
+  <summary>
+    <h2>2️⃣ Getting Started with Async and Await</h2>
+  </summary>
+  
+  <ul>
+    <li>
+      <h3>Sync vs Async</h3>
+      <div>
+        <ul>
+          <li>
+            <div>
+              <p><b>Synchronous (동기): 작업을 시키고 작업의 완료를 기다림</b></p>
+              <img width="100%" height="100%" src="https://github.com/user-attachments/assets/8d725a51-d9aa-4f55-93cc-cfddcdb4d8cb" />
+              <p>
+                즉, 작업이 끝날 때까지 <b>해당 thread가 점유되어 다른 작업 수행이 불가능!</b> <br>
+                <blockquote>
+                  <b>thread가 점유되어 다른 일의 수행이 불가능한 상태를 'Thread-Blocking'이라고 한다</b>
+                </blockquote>
+              </p>
+              <br>
+            </div>
+          </li>
+          <li>
+            <div>
+              <p><b>Asynchronous (비동기): 작업을 시키고 작업의 완료를 기다리지 않음</b></p>
+              <img width="100%" height="100%" src="https://github.com/user-attachments/assets/e11d9834-ac30-4cc5-9757-25aade558918" />
+              <p>
+                즉, <b>해당 thread가 점유되지 않아 다른 작업 수행이 가능!</b> <br>
+                <blockquote>
+                  <b>이를 'Non Thread-Blocking'이라고 한다</b>
+                </blockquote>
+              </p>
             </div>
           </li>
         </ul>
