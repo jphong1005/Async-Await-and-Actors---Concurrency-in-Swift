@@ -6,46 +6,15 @@
 //
 
 import SwiftUI
-
-//  https://ember-sparkly-rule.glitch.me/current-date => Glitch servers shutdown
-//
-//  { "datetime": "yyyy-MM-dd'T'HH:mm:ss+09:00" }
-struct CurrentDate: Decodable, Identifiable {
-    let id = UUID()
-    let dateTime: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case dateTime = "datetime"
-    }
-}
+import Combine
 
 struct ContentView: View {
-    @State private var currentDates: [CurrentDate] = []
-    
-    private func getDate() async throws -> CurrentDate? {
-        guard let url = URL(string: "https://mocki.io/v1/c60c7d72-74f8-4080-9672-312cae14eb53") else {
-            fatalError("URL is incorrect!")
-        }
-        let (data, _) = try await URLSession.shared.data(from: url)
-        
-        return try? JSONDecoder().decode(CurrentDate.self, from: data)
-    }
-    
-    private func populateDates() async -> Void {
-        do {
-            guard let currentDate = try await getDate() else {
-                return
-            }
-            self.currentDates.append(currentDate)
-        } catch {
-            print(error)
-        }
-    }
+    @StateObject private var currentDateListVM = CurrentDateListViewModel()
     
     var body: some View {
         NavigationStack {
-            List(currentDates) { currentDate in
-                Text(verbatim: "\(currentDate.dateTime)")
+            List(currentDateListVM.currentDates, id: \.id) { currentDate in
+                Text(verbatim: "\(currentDate.date)")
             }
             .listStyle(.plain)
             .navigationTitle("Dates")
@@ -53,7 +22,7 @@ struct ContentView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         Task {
-                            await populateDates()
+                            await currentDateListVM.populateDates()
                         }
                     } label: {
                         Image(systemName: "arrow.clockwise.circle")
@@ -61,7 +30,7 @@ struct ContentView: View {
                 }
             }
             .task {
-                await populateDates()
+                await currentDateListVM.populateDates()
             }
         }
     }
