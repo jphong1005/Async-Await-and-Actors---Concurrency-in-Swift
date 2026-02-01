@@ -153,7 +153,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 코드가 verbose (장황), complex (복잡), incorrect (부정확) 해졌고, 오류처리에 어려움이 있었음</p>
               <aside class="tip">
                 <blockquote>
-                  <p>⭐ <code>async</code>/<code>await</code>가 등장함에 따라, <strong>Straight-line code 작성 가능 + 가독성이 크게 향상</strong></p>
+                  <p>⭐ <code>async</code>/<code>await</code>가 등장함에 따라, <strong>Straight-line code 작성 가능 + 가독성이 크게 향상 📈</strong></p>
                 </blockquote>
               </aside>
             </li>
@@ -186,7 +186,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                     <p></p>
                     <aside class="tip">
                       <blockquote>
-                        <p>스레드 제어권을 System으로부터 다시 전달받을 떄, 할당된 thread는 이전과는 <strong>'다른 thread가 될 수도 있음'</strong></p>
+                        <p>스레드 제어권을 System으로부터 다시 전달받을 때, 할당된 thread는 이전과는 <strong>'다른 thread가 될 수도 있음'</strong></p>
                       </blockquote>
                     </aside>
                   </li>
@@ -246,11 +246,100 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               </tr>
             </table>
             <figcaption>
-              <h4>MVC (Model-View-Controller)</h4>
+              <h3>MVC (Model-View-Controller)</h3>
               <ul>
-                <li>Model: 데이터 요소</li>
-                <li>View: 화면에 보여지는 요소</li>
-                <li>Controller: UI Event I/O, B.L 처리</li>
+                <li>
+                  <h4>Traditional MVC (Smalltalk)</h4>
+                  <figure>
+                    <img src="https://github.com/user-attachments/assets/afb69710-b87d-45ee-9d49-9ba86833280f" />
+                    <figcaption>
+                      <aside class="tip">
+                        <blockquote>
+                          <p><strong>⭐ 서로 밀접하게 연결되어 있어, 독립적 수준에서의 Unit Test ❌</strong></p>
+                        </blockquote>
+                      </aside>
+                      <ol type="1">
+                        <li>Model: View에게 자신의 상태 변경 사항을 알림 (<strong>Observer</strong>)</li>
+                        <li>View: 중첩된 View들의 복합체 (즉, View Hierarchy를 의미하며, <strong>Composite</strong>)</li>
+                        <li>Controller: 하나 이상의 View에 대한 전략 구현 (<strong>Strategy</strong>)</li>
+                      </ol>
+                      <p></p>
+                      <aside class="tip">
+                        <blockquote>
+                          <p>💡 Traditional MVC의 문제점 (Theoritical Problem)</p>
+                          <ul type="circle">
+                            <li>
+                              <p><strong>View와 Model은</strong> Notification으로 연결된 <strong>상호 의존 관계</strong> (= <strong>객체의 재사용성 저해</strong>)</p>
+                            </li>
+                          </ul>
+                        </blockquote>
+                      </aside>
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <h4>Cocoa MVC</h4>
+                  <figure>
+                    <table>
+                      <tr>
+                        <td align="center">
+                          <img src="https://github.com/user-attachments/assets/5e7d6033-b7a5-4ed1-bc21-0565d50a7e41" />
+                          <p>Cocoa MVC (Expectation)</p>
+                        </td>
+                        <td align="center">
+                          <img src="https://github.com/user-attachments/assets/3a90a7ff-4d75-4d2c-9629-b851cd6abc61" />
+                          <p>Cocoa MVC (Reality)</p>
+                        </td>
+                      </tr>
+                  </table>
+                    <figcaption>
+                      <aside class="tip">
+                        <blockquote>
+                          <p><strong>⭐ View와 Model은 "Reusable한 객체"여야함</strong></p>
+                        </blockquote>
+                      </aside>
+                      <ol type="1">
+                        <li>Model: Data와 기능(Function)을 하나의 단위로 묶어 Encapsulation (<strong>Observer</strong>)</li>
+                        <li>View: App의 "외관과 느낌 (Look and Feel)" (<strong>Composite + Command (Target-Action)</strong>)</li>
+                        <li>
+                          Controller: View와 Model 사이의 <strong>"양방향 중재자 (View와 Model의 의존관계를 줄임)"</strong> (<strong>Mediator + Strategy</strong>)
+                          <p></p>
+                          <aside class="tip">
+                            <blockquote>
+                              <p><strong>⭐ View Lifecycle과 강하게 연결되어 있어 분리가 힘듦 (즉, "Massive"한 특성을 지니게 됨)</strong></p>
+                              <ul type="circle">
+                                <li>Model에게 맞지 않는 모든 비즈니스 로직 (e.g. Event 처리, View Layout 설정 등)</li>
+                                <li>View의 Life Cycle과 밀접하게 연관 (e.g. viewDidLoad() 등)</li>
+                                <li>Delegate 및 DataSource의 역할</li>
+                                <li>(필요에 따른) 기타 네트워킹 작업 등</li>
+                              </ul>
+                            </blockquote>
+                          </aside>
+                        </li>
+                      </ol>
+                      <p></p>
+                      <aside class="tip">
+                        <blockquote>
+                          <p>💡 Traditional MVC 구현의 실질적 문제점 (Practical Problem)</p>
+                          <ul type="circle">
+                            <li>
+                              <p>Mediating Controller는 NSController의 subclass로 Binding 기술을 지원, <br>
+                              이를 사용하지 않으면 View와 Model의 Notification에 대해 반응하는 코드를 custom으로 작성해야함</p>
+                            </li>
+                          </ul>
+                        </blockquote>
+                      </aside>
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <h4>(Cocoa) MVC의 특징</h4>
+                  <ol type="1">
+                    <li>Distribution: View와 Model은 분리가 잘 되지만, View와 Controller는 의존관계로 강하게 결합됨</li>
+                    <li>Testability: Model에 대해서만 Testable 함</li>
+                    <li>Ease of use: 다른 패턴에 비해 가장 적은 양의 코드로 빠른 개발 가능</li>
+                  </ol>
+                </li>
               </ul>
               <br>
               <h4>MVP (Model-View-Presenter)</h4>
