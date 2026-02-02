@@ -299,10 +299,10 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                         </blockquote>
                       </aside>
                       <ol type="1">
-                        <li>Model: Data와 기능(Function)을 하나의 단위로 묶어 Encapsulation (<strong>Observer</strong>)</li>
-                        <li>View: App의 "외관과 느낌 (Look and Feel)" (<strong>Composite + Command (Target-Action)</strong>)</li>
+                        <li>Model: Data와 기능(Function)을 하나의 단위로 묶어 Encapsulation</li>
+                        <li>View: App의 "외관과 느낌 (Look and Feel)"</li>
                         <li>
-                          Controller: View와 Model 사이의 <strong>"양방향 중재자 (View와 Model의 의존관계를 줄임)"</strong> (<strong>Mediator + Strategy</strong>)
+                          Controller: View와 Model 사이의 <strong>"양방향 중재자 (View와 Model의 의존관계를 줄임)"</strong>
                           <p></p>
                           <aside class="tip">
                             <blockquote>
@@ -342,11 +342,59 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 </li>
               </ul>
               <br>
-              <h4>MVP (Model-View-Presenter)</h4>
+              <h3>MVP (Model-View-Presenter)</h3>
               <ul>
-                <li>Model: 데이터 요소</li>
-                <li>View: 화면에 보여지는 요소</li>
-                <li>Presenter: 화면에 어떤 내용이 보여질지 담당하는 요소</li>
+                <figure>
+                  <img src="https://github.com/user-attachments/assets/3ff3367a-5af7-437e-96ca-c7a340c0e9bd" />
+                    <figcaption>
+                      <aside class="tip">
+                        <blockquote>
+                          <p><strong>⭐ View는 Dumb, View의 Event는 Presenter가 담당 (-> "관심사 분리")</strong></p>
+                        </blockquote>
+                      </aside>
+                      <ol type="1">
+                        <li>Model: 서비스에 사용되어지는 원천(source) 데이터</li>
+                        <li>
+                          View: <strong>Controller와 View (UIButton, UILabel 등)를 "하나의 View로 취급"</strong>
+                          <p></p>
+                          <aside class="tip">
+                            <blockquote>
+                              <p>💡 View는 <strong>"UI를 보여주는 역할"</strong>로, <strong>정적인 상태</strong></p>
+                            </blockquote>
+                          </aside>
+                        </li>
+                        <li>Presenter: View와 Model의 중재자</li>
+                      </ol>
+                    <p></p>
+                  </figcaption>
+                </figure>
+                <li>
+                  <h4>Presenter란</h4>
+                  <p><strong>"화면에 보여줄 것 (Data)들을 관리"하는 요소</strong></p>
+                  <ol type="1">
+                    <li>View의 <strong>Lifecycle에 관여 ❌</strong></li>
+                    <li>View <strong>Layout과 관련된 코드 ❌</strong></li>
+                    <li>단지 View의 <strong>state와 data를 업데이트 🔄</strong></li>
+                  </ol>
+                </li>
+                <li>
+                  <h4>MVP의 특징</h4>
+                  <ol type="1">
+                    <li>Distribution: 대부분의 책임이 Presenter와 Model로 나뉘어지고, View와 Model은 Dumb</li>
+                    <li>Testability: 대부분의 비즈니스 로직들을 테스트 할 수 있음</li>
+                    <li>Ease of use: MVC에 비해 많은 양의 코드를 요구하지만, 각 요소에 대해서는 역할을 분명히 할 수 있음</li>
+                  </ol>
+                  <p></p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p>⭐ Presenter의 장•단점</p>
+                      <ul type="circle">
+                        <li><strong>장점: 대부분의 B.L들을 테스트 할 수 있게됨</strong></li>
+                        <li><strong>단점: View와 1:1로 대응되어 View 생성시, Presenter도 같이 생성되어야 함</strong></li>
+                      </ul>
+                    </blockquote>
+                  </aside>
+                </li>
               </ul>
               <br>
               <h4>MVVM (Model-View-ViewModel)</h4>
