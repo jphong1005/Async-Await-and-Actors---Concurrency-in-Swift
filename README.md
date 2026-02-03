@@ -40,7 +40,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
           <aside class="tip">
             <blockquote>
               <p><strong>⭐ Main Queue는 UI Event나 매우 빠르게 발생할 수 있는 event를 위해 사용!</strong></p>
-              <p>&emsp;사용자 인터페이스는 매끄럽고 부드럽게 작동해야 하며, 어떠한 작업을 수행하더라도 끊김이 있어서는 안됨</p>
+              <p>&emsp; 사용자 인터페이스는 매끄럽고 부드럽게 작동해야 하며, 어떠한 작업을 수행하더라도 끊김이 있어서는 안됨</p>
             </blockquote>
           </aside>
           <br>
@@ -143,7 +143,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 <li><code>await</code>: <strong>비동기 함수 및 비동기 Context 내에서 다른 비동기 함수를 호출할 때 사용</strong><br></li>
               </ul>
               <br>
-              <p>&emsp;&emsp;비동기 context에는 <code>.task()</code>, <code>Task {}</code>, <code>async</code>함수 등이 존재</p>
+              <p>&emsp;&emsp; 비동기 context에는 <code>.task()</code>, <code>Task {}</code>, <code>async</code>함수 등이 존재</p>
             </blockquote>
           </aside>
           <ul>
@@ -169,7 +169,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                       <aside class="tip">
                         <blockquote>
                           <p><strong>⭐ <code>await</code></strong>는 async 함수가 <strong>"일시 중단될 수도 있음"</strong>을 나타내며, 이는 <strong>Non Thread-Blocking</strong>이다</p>
-                          <p>&emsp;반드시 suspend 된다는 것이 아님! (<code>await</code>를 <strong>'potential suspension point (잠재적인 일시중단 지점)'</strong>이라고 표현함)</p>
+                          <p>&emsp; 반드시 suspend 된다는 것이 아님! (<code>await</code>를 <strong>'potential suspension point (잠재적인 일시중단 지점)'</strong>이라고 표현함)</p>
                         </blockquote>
                       </aside>
                     </li>
@@ -221,7 +221,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 <li>Speed Up development: 개발 속도 향상</li>
               </ul>
               <br>
-              <p>&emsp;Design Pattern은 언어, Framework에 구애받지 않음</p>
+              <p>&emsp; Design Pattern은 언어, Framework에 구애받지 않음</p>
             </blockquote>
           </aside>
         </li>
@@ -255,7 +255,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                     <figcaption>
                       <aside class="tip">
                         <blockquote>
-                          <p><strong>⭐ 서로 밀접하게 연결되어 있어, 독립적 수준에서의 Unit Test ❌</strong></p>
+                          <p><strong>서로 밀접하게 연결되어 있어, 독립적 수준에서의 Unit Test ❌</strong></p>
                         </blockquote>
                       </aside>
                       <ol type="1">
@@ -349,33 +349,37 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                     <figcaption>
                       <aside class="tip">
                         <blockquote>
-                          <p><strong>⭐ View는 Dumb, View의 Event는 Presenter가 담당 (-> "관심사 분리")</strong></p>
+                          <p><strong>⭐ View는 Dumb, View의 Event는 Presenter가 담당</strong></p>
                         </blockquote>
                       </aside>
                       <ol type="1">
                         <li>Model: 서비스에 사용되어지는 원천(source) 데이터</li>
-                        <li>
-                          View: <strong>Controller와 View (UIButton, UILabel 등)를 "하나의 View로 취급"</strong>
-                          <p></p>
-                          <aside class="tip">
-                            <blockquote>
-                              <p>💡 View는 <strong>"UI를 보여주는 역할"</strong>로, <strong>정적인 상태</strong></p>
-                            </blockquote>
-                          </aside>
-                        </li>
+                        <li>View: <strong>Controller와 View (UIButton, UILabel 등)를 "하나의 View로 취급"</strong></li>
                         <li>Presenter: View와 Model의 중재자</li>
                       </ol>
                     <p></p>
+                      <aside class="tip">
+                        <blockquote>
+                          <p>⭐ View는 <strong>"UI를 보여주는 역할"</strong>로 <strong>정적인 상태</strong>이며, View와 Presenter는 <strong>Protocol (Interface)을 통해 서로의 존재를 앎</strong></p>
+                        </blockquote>
+                      </aside>
                   </figcaption>
                 </figure>
                 <li>
-                  <h4>Presenter란</h4>
-                  <p><strong>"화면에 보여줄 것 (Data)들을 관리"하는 요소</strong></p>
-                  <ol type="1">
+                  <h4>Presenter란?</h4>
+                  <p><strong>"화면에 보여줄 것들을 관리"하는 요소</strong></p>
+                  <ul type="circle">
                     <li>View의 <strong>Lifecycle에 관여 ❌</strong></li>
                     <li>View <strong>Layout과 관련된 코드 ❌</strong></li>
                     <li>단지 View의 <strong>state와 data를 업데이트 🔄</strong></li>
-                  </ol>
+                  </ul>
+                </li>
+                <li>
+                  <h4>Presenter의 장•단점</h4>
+                  <ul type="circle">
+                    <li><strong>장점: 대부분의 B.L들을 테스트 할 수 있게됨</strong></li>
+                    <li><strong>단점: View와 1:1로 대응되어 View 생성시, Presenter도 같이 생성되어야 함</strong></li>
+                  </ul>
                 </li>
                 <li>
                   <h4>MVP의 특징</h4>
@@ -384,24 +388,63 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                     <li>Testability: 대부분의 비즈니스 로직들을 테스트 할 수 있음</li>
                     <li>Ease of use: MVC에 비해 많은 양의 코드를 요구하지만, 각 요소에 대해서는 역할을 분명히 할 수 있음</li>
                   </ol>
-                  <p></p>
-                  <aside class="tip">
-                    <blockquote>
-                      <p>⭐ Presenter의 장•단점</p>
-                      <ul type="circle">
-                        <li><strong>장점: 대부분의 B.L들을 테스트 할 수 있게됨</strong></li>
-                        <li><strong>단점: View와 1:1로 대응되어 View 생성시, Presenter도 같이 생성되어야 함</strong></li>
-                      </ul>
-                    </blockquote>
-                  </aside>
                 </li>
               </ul>
               <br>
-              <h4>MVVM (Model-View-ViewModel)</h4>
+              <h3>MVVM (Model-View-ViewModel)</h3>
               <ul>
-                <li>Model: 데이터 요소</li>
-                <li>View: 화면에 보여지는 요소</li>
-                <li>ViewModel: 화면에 보여지는 데이터 요소만 갖는 요소</li>
+                <figure>
+                  <img src="https://github.com/user-attachments/assets/ff992e68-4306-4a32-b790-e2e97e3b54a6" />
+                    <figcaption>
+                      <aside class="tip">
+                        <blockquote>
+                          <p><strong>⭐ View는 ViewModel을 "관찰"하고, ViewModel은 Data 요소만 갖음</strong></p>
+                        </blockquote>
+                      </aside>
+                      <ol type="1">
+                        <li>Model: 서비스에 사용되어지는 원천(source) 데이터</li>
+                        <li>View: Controller와 View (UIButton, UILabel 등)를 하나의 View로 취급</li>
+                        <li>ViewModel: View와 Model의 중재자</li>
+                      </ol>
+                      <p></p>
+                      <aside class="tip">
+                        <blockquote>
+                          <p><strong>⭐ View는 ViewModel과 Binding을 통해 UI를 update (-> View와 ViewModel은 N:1 관계가 성립됨)</strong></p>
+                          <p>&emsp; <strong>View와 ViewModel 간의 의존성 제거! (= 단방향 이벤트 수신)</strong></p>
+                        </blockquote>
+                      </aside>
+                  </figcaption>
+                </figure>
+                <li>
+                  <h4>ViewModel 특징</h4>
+                  <ol type="1">
+                    <li><strong>ViewModel은 View를 직접 update ❌</strong> (= View를 신경쓰지 않음)</li>
+                    <li><strong>View가 필요한 state, data를 갖고, 이를 방출</strong> (-> 방출의 개념은 Reactive Programming)</li>
+                  </ol>
+                  <p></p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p>💡 View와 ViewModel의 Binding 방법</p>
+                      <p>&emsp; KVO (Key-Value Observing), NotificationCenter, Property Observers 등을 사용 <br>
+                        &emsp; 그러나, 이를 바인딩이라고 표현하기에는 애매하고 사용이 불편 (-> <strong>RxSwift, Combine Framework</strong>가 해결)</p>
+                    </blockquote>
+                  </aside>
+                </li>
+                <li>
+                  <h4>MVP와 MVVP의 차이</h4>
+                  <ul type="circle">
+                    <li>MVP: View에서 발생하는 이벤트를 Presenter에게 넘기고 View는 자신의 UI를 직접 갱신 ❌</li>
+                    <li>MVVM: View는 바인딩을 통해 ViewModel의 상태에 따라 UI를 갱신 ✅</li>
+                  </ul>
+                </li>
+                <li>
+                  <h4>MVVM의 특징</h4>
+                  <ol type="1">
+                    <li>Distribution: MVP의 View보다 MVVM의 View가 가지는 책임이 더 큼</li>
+                    <li>Testability: View와 ViewModel은 서로 의존관계가 아니므로 테스트하기 쉬움</li>
+                    <li>Ease of use: MVP와 비슷한 양의 코드를 요구하지만, View의 이벤트를 Presenter를 통해 알리고 수동으로 View를 갱신하는 MVP와 달리 바인딩을 사용하면 MVVM이 훨씬 더 간편함</li>
+                  </ol>
+                </li>
               </ul>
             </figcaption>
           </figure>
