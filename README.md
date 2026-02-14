@@ -105,10 +105,10 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               <figure>
                 <img src="https://github.com/user-attachments/assets/8d725a51-d9aa-4f55-93cc-cfddcdb4d8cb" />
                 <figcaption>
-                  <p>즉, 작업이 끝날 때까지 <strong>해당 thread가 점유되어 다른 작업 수행이 불가능!</strong></p>
+                  <p>작업이 끝날 때까지 <strong>해당 thread가 점유되어 다른 작업 수행이 불가능!</strong></p>
                   <aside class="tip">
                     <blockquote>
-                      <p><strong>⭐ thread가 점유되어 다른 일의 수행이 불가능한 상태를 'Thread-Blocking'이라고 한다</strong></p>
+                      <p><strong>Thread가 점유되어 다른 일의 수행이 불가능한 상태를 'Thread-Blocking'이라고 한다</strong></p>
                     </blockquote>
                   </aside>
                 </figcaption>
@@ -119,7 +119,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               <figure>
                 <img src="https://github.com/user-attachments/assets/e11d9834-ac30-4cc5-9757-25aade558918" />
                 <figcaption>
-                  <p>즉, <strong>해당 thread가 점유되지 않아 다른 작업 수행이 가능!</strong></p>
+                  <p><strong>해당 thread가 점유되지 않아 다른 작업 수행이 가능!</strong></p>
                   <aside class="tip">
                     <blockquote>
                       <p><strong>이를 'Non Thread-Blocking'이라고 한다</strong></p>
@@ -134,7 +134,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
         <!-- Async & Await -->
         <li>
           <h3>Async & Await</h3>
-          <p><strong>async, await: 기존의 비동기 처리 코드를 "동기 처리처럼" 보일 수 있도록 지원</strong></p>
+          <p><strong>async & await: 기존의 비동기 처리 코드를 "동기 처리처럼" 보일 수 있도록 지원</strong></p>
           <aside class="tip">
             <blockquote>
               <p>🟣 <code>async</code> & <code>await</code> 의미</p>
@@ -173,28 +173,29 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                         </blockquote>
                       </aside>
                     </li>
-                  <li>suspend: 스레드 제어권은 <strong>System에게 전달되고</strong>, System은 thread를 사용해 <strong>다른 작업을 수행 (우선순위가 높은 작업부터 처리)</strong>
-                    <p></p>
-                    <aside class="tip">
-                      <blockquote>
+                    <li>suspend: 스레드 제어권은 <strong>System에게 전달되고</strong>, System은 thread를 사용해 <strong>다른 작업을 수행 (우선순위가 높은 작업부터 처리)</strong>
+                      <p></p>
+                      <aside class="tip">
+                        <blockquote>
                           <p><strong>⭐ 함수가 일시중단된 동안 App의 상태가 크게 바뀔 수 있다</strong></p>
-                      </blockquote>
-                    </aside>
+                        </blockquote>
+                      </aside>
                     </li>
-                  <li>resume: suspend된 비동기 함수를 재개 (resume)하는 단계</li>
-                  <li>종료: callee가 종료되면, 스레드 제어권을 caller에게 반납
-                    <p></p>
-                    <aside class="tip">
-                      <blockquote>
-                        <p>스레드 제어권을 System으로부터 다시 전달받을 때, 할당된 thread는 이전과는 <strong>'다른 thread가 될 수도 있음'</strong></p>
-                      </blockquote>
-                    </aside>
-                  </li>
-                </ol>
-              </figcaption>
+                    <li>resume: suspend된 비동기 함수를 재개 (resume)하는 단계</li>
+                    <li>종료: callee가 종료되면, 스레드 제어권을 caller에게 반납
+                      <p></p>
+                      <aside class="tip">
+                        <blockquote>
+                          <p>⭐ 스레드 제어권을 System으로부터 다시 전달받을 때, 할당된 thread는 이전과는 <strong>'다른 thread가 될 수도 있음'</strong></p>
+                        </blockquote>
+                      </aside>
+                    </li>
+                  </ol>
+                </figcaption>
               </figure>
             </li>
           </ul>
+          <br>
         </li>
       </ul>
     </section>
@@ -213,17 +214,18 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
         <li>
           <h3>What are Design Patterns?</h3>
           <p><strong>Design Pattern: 특정 시나리오에서 특정 문제를 해결하기 위한 최적의 방법</strong></p>
+          <ul>
+            <li>Best practice: 문제 해결을 위한 최적의 방법</li>
+            <li>Relationships between classes & objects: class와 object 간의 관계</li>
+            <li>Speed Up development: 개발 속도 향상</li>
+          </ul>
+          <p></p>
           <aside class="tip">
             <blockquote>
-              <ul>
-                <li>Best practice: 문제 해결을 위한 최적의 방법</li>
-                <li>Relationships between classes & objects: class와 object 간의 관계</li>
-                <li>Speed Up development: 개발 속도 향상</li>
-              </ul>
-              <br>
-              <p>&emsp; Design Pattern은 언어, Framework에 구애받지 않음</p>
+              <p>Design Pattern은 언어, Framework에 구애받지 않음</p>
             </blockquote>
           </aside>
+          <br>
         </li>
         <!-- What is MVVM & Why MVVM (with. MVC, MVP) -->
         <li>
@@ -245,9 +247,13 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 </td>
               </tr>
             </table>
-            <figcaption>
+          </figure>
+          <ol type="1">
+            <!-- MVC (Model-View-Controller) -->
+            <li>
               <h3>MVC (Model-View-Controller)</h3>
-              <ul>
+              <ul type="circle">
+                <!-- Traditional MVC (Smalltalk) -->
                 <li>
                   <h4>Traditional MVC (Smalltalk)</h4>
                   <figure>
@@ -258,15 +264,15 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                           <p><strong>서로 밀접하게 연결되어 있어, 독립적 수준에서의 Unit Test ❌</strong></p>
                         </blockquote>
                       </aside>
-                      <ol type="1">
-                        <li>Model: View에게 자신의 상태 변경 사항을 알림 (<strong>Observer</strong>)</li>
-                        <li>View: 중첩된 View들의 복합체 (즉, View Hierarchy를 의미하며, <strong>Composite</strong>)</li>
-                        <li>Controller: 하나 이상의 View에 대한 전략 구현 (<strong>Strategy</strong>)</li>
-                      </ol>
+                      <ul type="circle">
+                        <li>Model: View에게 자신의 상태 변경 사항을 알림</li>
+                        <li>View: 중첩된 View들의 복합체 (즉, View Hierarchy를 의미)</li>
+                        <li>Controller: 하나 이상의 View에 대한 전략 구현</li>
+                      </ul>
                       <p></p>
                       <aside class="tip">
                         <blockquote>
-                          <p>💡 Traditional MVC의 문제점 (Theoritical Problem)</p>
+                          <p>🔥 Traditional MVC의 문제점 (Theoritical Problem)</p>
                           <ul type="circle">
                             <li>
                               <p><strong>View와 Model은</strong> Notification으로 연결된 <strong>상호 의존 관계</strong> (= <strong>객체의 재사용성 저해</strong>)</p>
@@ -277,6 +283,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                     </figcaption>
                   </figure>
                 </li>
+                <!-- Cocoa MVC -->
                 <li>
                   <h4>Cocoa MVC</h4>
                   <figure>
@@ -291,22 +298,22 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                           <p>Cocoa MVC (Reality)</p>
                         </td>
                       </tr>
-                  </table>
+                    </table>
                     <figcaption>
                       <aside class="tip">
                         <blockquote>
                           <p><strong>⭐ View와 Model은 "Reusable한 객체"여야함</strong></p>
                         </blockquote>
                       </aside>
-                      <ol type="1">
+                      <ul type="circle">
                         <li>Model: Data와 기능(Function)을 하나의 단위로 묶어 Encapsulation</li>
                         <li>View: App의 "외관과 느낌 (Look and Feel)"</li>
                         <li>
-                          Controller: View와 Model 사이의 <strong>"양방향 중재자 (View와 Model의 의존관계를 줄임)"</strong>
+                          Controller: View와 Model 사이의 <strong>"양방향 중재자"</strong>
                           <p></p>
                           <aside class="tip">
                             <blockquote>
-                              <p><strong>⭐ View Lifecycle과 강하게 연결되어 있어 분리가 힘듦 (즉, "Massive"한 특성을 지니게 됨)</strong></p>
+                              <p><strong>💡 그러나, Controller는 View Lifecycle과 강하게 연결되어 있어 분리가 힘듦 (-> "Massive"한 특성을 지니게 됨)</strong></p>
                               <ul type="circle">
                                 <li>Model에게 맞지 않는 모든 비즈니스 로직 (e.g. Event 처리, View Layout 설정 등)</li>
                                 <li>View의 Life Cycle과 밀접하게 연관 (e.g. viewDidLoad() 등)</li>
@@ -316,11 +323,11 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                             </blockquote>
                           </aside>
                         </li>
-                      </ol>
+                      </ul>
                       <p></p>
                       <aside class="tip">
                         <blockquote>
-                          <p>💡 Traditional MVC 구현의 실질적 문제점 (Practical Problem)</p>
+                          <p>🔥 Traditional MVC 구현의 실질적 문제점 (Practical Problem)</p>
                           <ul type="circle">
                             <li>
                               <p>Mediating Controller는 NSController의 subclass로 Binding 기술을 지원, <br>
@@ -342,32 +349,34 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 </li>
               </ul>
               <br>
+            </li>
+            <!-- MVP (Model-View-Presenter) -->
+            <li>
               <h3>MVP (Model-View-Presenter)</h3>
-              <ul>
-                <figure>
-                  <img src="https://github.com/user-attachments/assets/3ff3367a-5af7-437e-96ca-c7a340c0e9bd" />
-                    <figcaption>
-                      <aside class="tip">
-                        <blockquote>
-                          <p><strong>⭐ View는 Dumb, View의 Event는 Presenter가 담당</strong></p>
-                        </blockquote>
-                      </aside>
-                      <ol type="1">
-                        <li>Model: 서비스에 사용되어지는 원천(source) 데이터</li>
-                        <li>View: <strong>Controller와 View (UIButton, UILabel 등)를 "하나의 View로 취급"</strong></li>
-                        <li>Presenter: View와 Model의 중재자</li>
-                      </ol>
-                    <p></p>
-                      <aside class="tip">
-                        <blockquote>
-                          <p>⭐ View는 <strong>"UI를 보여주는 역할"</strong>로 <strong>정적인 상태</strong>이며, View와 Presenter는 <strong>Protocol (Interface)을 통해 서로의 존재를 앎</strong></p>
-                        </blockquote>
-                      </aside>
-                  </figcaption>
-                </figure>
+              <figure>
+                <img src="https://github.com/user-attachments/assets/3ff3367a-5af7-437e-96ca-c7a340c0e9bd" />
+                <figcaption>
+                  <aside class="tip">
+                    <blockquote>
+                      <p><strong>⭐ View는 Dumb, View의 Event는 Presenter가 담당</strong></p>
+                    </blockquote>
+                  </aside>
+                  <ul type="circle">
+                    <li>Model: 서비스에 사용되어지는 원천(source) 데이터</li>
+                    <li>View: <strong>Controller와 View (UIButton, UILabel 등)를 "하나의 View로 취급"</strong></li>
+                    <li>Presenter: View와 Model의 중재자로, <strong>"화면에 보여줄 것들을 관리"하는 요소</strong></li>
+                  </ul>
+                  <p></p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p>⭐ View와 Presenter는 <strong>Protocol (Interface)을 통해 서로의 존재를 앎</strong></p>
+                    </blockquote>
+                  </aside>
+                </figcaption>
+              </figure>
+              <ul type="circle">
                 <li>
-                  <h4>Presenter란?</h4>
-                  <p><strong>"화면에 보여줄 것들을 관리"하는 요소</strong></p>
+                  <h4>Presenter의 특징</h4>
                   <ul type="circle">
                     <li>View의 <strong>Lifecycle에 관여 ❌</strong></li>
                     <li>View <strong>Layout과 관련된 코드 ❌</strong></li>
@@ -376,10 +385,20 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 </li>
                 <li>
                   <h4>Presenter의 장•단점</h4>
-                  <ul type="circle">
-                    <li><strong>장점: 대부분의 B.L들을 테스트 할 수 있게됨</strong></li>
-                    <li><strong>단점: View와 1:1로 대응되어 View 생성시, Presenter도 같이 생성되어야 함</strong></li>
-                  </ul>
+                  <table border="1" cellpadding="10" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Pros.</th>
+                        <th>Cons.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>대부분의 B.L들을 테스트 할 수 있게됨</td>
+                        <td>View와 1:1로 대응되어 View 생성 시, Presenter도 같이 생성되어야 함</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </li>
                 <li>
                   <h4>MVP의 특징</h4>
@@ -391,51 +410,63 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 </li>
               </ul>
               <br>
+            </li>
+            <!-- MVVM (Model-View-ViewModel) -->
+            <li>
               <h3>MVVM (Model-View-ViewModel)</h3>
-              <ul>
-                <figure>
-                  <img src="https://github.com/user-attachments/assets/ff992e68-4306-4a32-b790-e2e97e3b54a6" />
-                    <figcaption>
-                      <aside class="tip">
-                        <blockquote>
-                          <p><strong>⭐ View는 ViewModel을 "관찰"하고, ViewModel은 Data 요소만 갖음</strong></p>
-                        </blockquote>
-                      </aside>
-                      <ol type="1">
-                        <li>Model: 서비스에 사용되어지는 원천(source) 데이터</li>
-                        <li>View: Controller와 View (UIButton, UILabel 등)를 하나의 View로 취급</li>
-                        <li>ViewModel: View와 Model의 중재자</li>
-                      </ol>
-                      <p></p>
-                      <aside class="tip">
-                        <blockquote>
-                          <p><strong>⭐ View는 ViewModel과 Binding을 통해 UI를 update (-> View와 ViewModel은 N:1 관계가 성립됨)</strong></p>
-                          <p>&emsp; <strong>View와 ViewModel 간의 의존성 제거! (= 단방향 이벤트 수신)</strong></p>
-                        </blockquote>
-                      </aside>
-                  </figcaption>
-                </figure>
+              <figure>
+                <img src="https://github.com/user-attachments/assets/ff992e68-4306-4a32-b790-e2e97e3b54a6" />
+                <figcaption>
+                  <aside class="tip">
+                    <blockquote>
+                      <p><strong>⭐ View는 ViewModel을 "관찰"하고, ViewModel은 Data, State 요소만 갖음</strong></p>
+                    </blockquote>
+                  </aside>
+                  <ul type="circle">
+                    <li>Model: 서비스에 사용되어지는 원천(source) 데이터</li>
+                    <li>View: Controller와 View (UIButton, UILabel 등)를 하나의 View로 취급</li>
+                    <li>ViewModel: View와 Model의 중재자</li>
+                  </ul>
+                  <p></p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p>⭐ View는 ViewModel과 <strong>Binding을 통해 UI를 update함으로써, View와 ViewModel은 N:1 관계가 성립</strong></p>
+                    </blockquote>
+                  </aside>
+                </figcaption>
+              </figure>
+              <ul type="circle">
                 <li>
-                  <h4>ViewModel 특징</h4>
-                  <ol type="1">
-                    <li><strong>ViewModel은 View를 직접 update ❌</strong> (= View를 신경쓰지 않음)</li>
-                    <li><strong>View가 필요한 state, data를 갖고, 이를 방출</strong> (-> 방출의 개념은 Reactive Programming)</li>
-                  </ol>
+                  <h4>ViewModel의 특징</h4>
+                  <ul type="circle">
+                    <li>ViewModel은 <strong>View를 직접 update ❌</strong></li>
+                    <li><strong>View가 필요한 State, Data를 갖고, 이를 방출 (Reactive Programming)</strong></li>
+                  </ul>
                   <p></p>
                   <aside class="tip">
                     <blockquote>
                       <p>💡 View와 ViewModel의 Binding 방법</p>
                       <p>&emsp; KVO (Key-Value Observing), NotificationCenter, Property Observers 등을 사용 <br>
-                        &emsp; 그러나, 이를 바인딩이라고 표현하기에는 애매하고 사용이 불편 (-> <strong>RxSwift, Combine Framework</strong>가 해결)</p>
+                        &emsp; 그러나, 이를 바인딩이라고 표현하기에는 애매하고 사용이 불편 (이후 <strong>RxSwift, Combine Framework</strong>가 등장)</p>
                     </blockquote>
                   </aside>
                 </li>
                 <li>
-                  <h4>MVP와 MVVP의 차이</h4>
-                  <ul type="circle">
-                    <li>MVP: View에서 발생하는 이벤트를 Presenter에게 넘기고 View는 자신의 UI를 직접 갱신 ❌</li>
-                    <li>MVVM: View는 바인딩을 통해 ViewModel의 상태에 따라 UI를 갱신 ✅</li>
-                  </ul>
+                  <h4>MVP와 MVVM의 차이</h4>
+                  <table border="1" cellpadding="10" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>MVP</th>
+                        <th>MVVM</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>UI 이벤트를 Presenter에게 넘기고 View는 자신의 UI를 직접 갱신 ❌</td>
+                        <td>View는 바인딩을 통해 ViewModel의 상태에 따라 UI를 갱신 ✅</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </li>
                 <li>
                   <h4>MVVM의 특징</h4>
@@ -446,6 +477,127 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                   </ol>
                 </li>
               </ul>
+            </li>
+          </ol>
+          <br>
+        </li>
+      </ul>
+    </section>
+  </details>
+</article>
+
+<!-- 4.Exposing your Function As Async/Await Using Continuation -->
+<article class="lecture4">
+  <details>
+    <!-- Title -->
+    <summary><strong>4️⃣ Exposing your Function As Async/Await Using Continuation</strong></summary>
+    <!-- Contents -->
+    <section>
+      <ul>
+        <!-- What is Continuation? -->
+        <li>
+          <h3>What is Continuation?</h3>
+          <p><strong>Continuation: 비동기 코드와 동기 코드 사이를 연결해주는 Bridge</strong></p>
+          <aside class="tip">
+            <blockquote>
+              <p><strong>🟰 즉, 기존의 callback 함수를 <code>async</code>/<code>await</code> 스타일로 변환</strong></p>
+            </blockquote>
+          </aside>
+          <ul>
+            <li>
+              <h4>Continuation의 장•단점</h4>
+              <table border="1" cellpadding="10" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Pros.</th>
+                    <th>Cons.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <ul type="circle">
+                        <li>callback API를 Async/Await로 전환
+                          <ul>
+                            <li><strong>Legacy callback API 유지</strong> + <strong>점진적 Migration 가능</strong></li>
+                          </ul>
+                        </li>
+                        <li>Straight-line code
+                          <ul>
+                            <li><strong>가독성 & 유지보수성 개선</strong></li>
+                          </ul>
+                        </li>
+                        <li>withCheckedContinuation의 안정성
+                          <ul>
+                            <li>Runtime 시, <strong>resume을 한 번만 호출했는지 Check</strong></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul type="circle">
+                        <li>resume 누락시, Task 무한 대기
+                          <ul>
+                            <li>영원히 suspend 상태가 됨 (<strong>= DeadLock 발생 가능성</strong>)</li>
+                          </ul>
+                        </li>
+                        <li>Straight-line code
+                          <ul>
+                            <li><strong>가독성 & 유지보수성 개선</strong></li>
+                          </ul>
+                        </li>
+                        <li>withCheckedContinuation의 안정성
+                          <ul>
+                            <li>Runtime 시, <strong>resume을 "한 번만" 호출했는지 Check</strong></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+          <br>
+        </li>
+        <!-- Continuation 종류 -->
+        <li>
+          <h3>Continuation 종류</h3>
+          <ul>
+            <li><strong>withCheckedContinuation</strong>: Runtime 시, <strong>"안정성을 보장"하는 방법</strong></li>
+            <li><strong>withUnsafeContinuation</strong>: 더 낮은 수준의 연산을 원할 때 사용, <strong>Runtime "안정성 검증이 없음"</strong></li>
+          </ul>
+          <br>
+        </li>
+        <!-- Example -->
+        <li>
+          <h3>Example.</h3>
+          <figure>
+            <table>
+              <tr>
+                <td align="center">
+                  <img src="https://github.com/user-attachments/assets/d52d3501-7a18-4ac3-b9ce-927ce3b867cc" />
+                  <p>Callback API</p>
+                </td>
+                <td align="center">
+                  <img src="https://github.com/user-attachments/assets/589b4754-6b75-4796-85df-04314872077e" />
+                  <p>Async/Await (Using Continuation)</p>
+                </td>
+              </tr>
+            </table>
+            <figcaption>
+              <aside class="tip">
+                <blockquote>
+                  <p><strong>⭐ Wrapping을 통한 Proxy Pattern 기반으로 기존의 callback API는 유지하면서, Async/Await 함수로 Migration</strong></p>
+                  <p>&emsp; 비동기 Task 재개 시, 호출해야 Method</p>
+                  <ul type="circle">
+                    <li>resume(returning:)</li>
+                    <li>resume(throwing:)</li>
+                    <li>resume(with:)</li>
+                    <li>resume()</li>
+                  </ul>
+                </blockquote>
+              </aside>
             </figcaption>
           </figure>
         </li>
