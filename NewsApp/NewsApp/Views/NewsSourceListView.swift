@@ -26,8 +26,8 @@ struct NewsSourceListView: View {
                 }
             }
             .listStyle(.plain)
-            .onAppear {
-                newsSourceListViewModel.getSources()
+            .task {
+                await newsSourceListViewModel.getSources()
             }
             .navigationTitle(Text("News Sources"))
             .toolbar {

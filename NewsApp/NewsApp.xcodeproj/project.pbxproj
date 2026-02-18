@@ -17,6 +17,7 @@
 		93A321DB2F44B02900C62B4C /* NewsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A321DA2F44B02900C62B4C /* NewsListView.swift */; };
 		93A321DD2F44B79C00C62B4C /* NewsArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A321DC2F44B79C00C62B4C /* NewsArticle.swift */; };
 		93A321DF2F44B9F200C62B4C /* NewsArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A321DE2F44B9F200C62B4C /* NewsArticleListViewModel.swift */; };
+		93C611B12F460C2100F3D07C /* WebService+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C611B02F460C2100F3D07C /* WebService+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		93A321DA2F44B02900C62B4C /* NewsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListView.swift; sourceTree = "<group>"; };
 		93A321DC2F44B79C00C62B4C /* NewsArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticle.swift; sourceTree = "<group>"; };
 		93A321DE2F44B9F200C62B4C /* NewsArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleListViewModel.swift; sourceTree = "<group>"; };
+		93C611B02F460C2100F3D07C /* WebService+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WebService+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		93A321C62F44871000C62B4C /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				93C611AF2F460C0C00F3D07C /* Extensions */,
 				93A321CB2F44873600C62B4C /* Models */,
 				93A321CD2F44883000C62B4C /* Views */,
 				93A321CC2F44874000C62B4C /* ViewModels */,
@@ -115,6 +118,14 @@
 				93A321D82F44A76000C62B4C /* Constants.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		93C611AF2F460C0C00F3D07C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				93C611B02F460C2100F3D07C /* WebService+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +208,7 @@
 				93A321DD2F44B79C00C62B4C /* NewsArticle.swift in Sources */,
 				93A321CF2F44889500C62B4C /* NewsSource.swift in Sources */,
 				93A321DF2F44B9F200C62B4C /* NewsArticleListViewModel.swift in Sources */,
+				93C611B12F460C2100F3D07C /* WebService+.swift in Sources */,
 				93A321D92F44A76000C62B4C /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
