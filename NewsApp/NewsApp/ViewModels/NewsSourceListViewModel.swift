@@ -12,10 +12,16 @@ import Combine
 @MainActor
 final class NewsSourceListViewModel: ObservableObject {
     //  @Published: ObservableObject 안에서 View에게 상태 변화를 알릴 때 사용
-    //  특징: class 타입에서 사용하며, 값이 바뀌면 @ObservedObject나 @StateObject가 구독하고 있는 View가 갱신됨
+    //  특징: class 타입에서 사용, 값이 바뀌면 @ObservedObject나 @StateObject가 구독하고 있는 View가 갱신됨
     @Published var newsSources: [NewsSourceViewModel] = []
-        
+    @Published var isLoading: Bool = false
+    
     func getSources() async -> Void {
+        guard (!isLoading == true) else { return }
+        isLoading = true
+        
+        defer { isLoading = false }
+        
         do {
             let newsSources: [NewsSource] = try await WebService.shared.fetchSources(url: Constants.Urls.sources)
             self.newsSources = newsSources.map(NewsSourceViewModel.init)

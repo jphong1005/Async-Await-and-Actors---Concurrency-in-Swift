@@ -18,14 +18,25 @@ struct NewsSourceListView: View {
     
     var body: some View {
         NavigationStack {
-            List(newsSourceListViewModel.newsSources, id: \.id) { newsSource in
-                NavigationLink {
-                    NewsListView(newsSource: newsSource)
-                } label: {
-                    NewsSourceCell(newsSource: newsSource)
+            Group {
+                if newsSourceListViewModel.isLoading {
+                    VStack {
+                        Spacer()
+                        ProgressView()
+                            .scaleEffect(1.0)
+                        Spacer()
+                    }
+                } else {
+                    List(newsSourceListViewModel.newsSources, id: \.id) { newsSource in
+                        NavigationLink {
+                            NewsListView(newsSource: newsSource)
+                        } label: {
+                            NewsSourceCell(newsSource: newsSource)
+                        }
+                    }
+                    .listStyle(.plain)
                 }
             }
-            .listStyle(.plain)
             .task {
                 await newsSourceListViewModel.getSources()
             }
@@ -33,10 +44,13 @@ struct NewsSourceListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        //  refresh the news
+                        Task {
+                            await newsSourceListViewModel.getSources()
+                        }
                     } label: {
                         Image(systemName: "arrow.clockwise.circle")
                     }
+                    .disabled(newsSourceListViewModel.isLoading)
                 }
             }
         }
