@@ -65,12 +65,12 @@
 		93A321C62F44871000C62B4C /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
-				93C611AF2F460C0C00F3D07C /* Extensions */,
 				93A321CB2F44873600C62B4C /* Models */,
 				93A321CD2F44883000C62B4C /* Views */,
 				93A321CC2F44874000C62B4C /* ViewModels */,
 				93A321D12F448C3300C62B4C /* Services */,
 				93A321D32F448C5100C62B4C /* Utils */,
+				93C611AF2F460C0C00F3D07C /* Extensions */,
 				93A321C32F44871000C62B4C /* Assets.xcassets */,
 				93A321C52F44871000C62B4C /* NewsAppApp.swift */,
 			);

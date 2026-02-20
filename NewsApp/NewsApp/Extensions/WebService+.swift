@@ -23,15 +23,15 @@ extension WebService {
     }
     
     func fetchNews(by sourceId: String, url: URL?) async throws -> [NewsArticle] {
-        guard let url: URL = url else { throw NetworkError.badUrl }
-        
-        do {
-            let (data, _): (Data, URLResponse) = try await URLSession.shared.data(from: url)
-            let newsArticleResponse: NewsArticleResponse? = try? JSONDecoder().decode(NewsArticleResponse.self, from: data)
-            
-            return newsArticleResponse?.articles ?? []
-        } catch {
-            throw NetworkError.invalidData
+        return try await withCheckedThrowingContinuation { continuation in
+            fetchNews(by: sourceId, url: url) { result in
+                switch result {
+                case .success(let newsArticles):
+                    continuation.resume(returning: newsArticles)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
         }
     }
 }
