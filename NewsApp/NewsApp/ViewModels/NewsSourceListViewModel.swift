@@ -16,17 +16,25 @@ final class NewsSourceListViewModel: ObservableObject {
     @Published var newsSources: [NewsSourceViewModel] = []
     @Published var isLoading: Bool = false
     
-    func getSources() async -> Void {
-        guard (!isLoading == true) else { return }
+    private func withLoading(_ execute: @escaping () async -> Void) async -> Void {
+        guard (!isLoading) else { return }
         isLoading = true
         
+        //  defer의 closure는 작성된 위치와 상관 없이 함수 종료 직전에 실행
+        //  단, defer 이전에 함수가 끝나면 defer는 실행되지 않음
         defer { isLoading = false }
         
-        do {
-            let newsSources: [NewsSource] = try await WebService.shared.fetchSources(url: Constants.Urls.sources)
-            self.newsSources = newsSources.map(NewsSourceViewModel.init)
-        } catch {
-            print(error.localizedDescription)
+        await execute()
+    }
+    
+    func getSources() async -> Void {
+        await withLoading {
+            do {
+                let newsSources: [NewsSource] = try await WebService.shared.fetchSources(url: Constants.Urls.sources)
+                self.newsSources = newsSources.map(NewsSourceViewModel.init)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 }
