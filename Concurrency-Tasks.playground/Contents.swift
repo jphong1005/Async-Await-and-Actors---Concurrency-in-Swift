@@ -36,11 +36,6 @@ func getAPR(userId: Int) async throws -> Double {
         throw NetworkError.badUrl
     }
     
-    //  For testing the cancellation of the task
-    if (userId % 2 == 0) {
-        throw NetworkError.invalidId
-    }
-    
     async let (experianData, _): (Data, URLResponse) = URLSession.shared.data(from: experianUrl)
     async let (equifaxData, _): (Data, URLResponse) = URLSession.shared.data(from: equifaxUrl)
     
@@ -56,23 +51,26 @@ func getAPR(userId: Int) async throws -> Double {
 }
 
 let ids: [Int] = Array(1...5)
-var invalidIds: [Int] = []
 
-Task {
-    for id in ids {
-        do {
-            //  Cancellation 2가지 방법
-            //      - Task.isCancelled: 취소 상태 확인만 함 (-> 리소스 정리 후 종료하거나 값을 반환할 때 사용)
-            //      - Task.checkCancellation(): 취소 여부 확인 후, 취소된 상태라면 즉시 CancellationError를 던짐 (-> 즉시 중단하고 에러처리를 맡길 때 사용)
-            
-            try Task.checkCancellation()
-            let apr: Double = try await getAPR(userId: id)
-            print("id: \(id) / apr: \(apr)")
-        } catch {
-            print("error: \(error)")
-            invalidIds.append(id)
+func getAPRForAllUsers(ids: [Int]) async throws -> [Int : Double] {
+    var userAPR: [Int : Double] = [:]
+    
+    try await withThrowingTaskGroup(of: (Int, Double).self) { group in
+        for id in ids {
+            group.addTask {
+                return (id, try await getAPR(userId: id))
+            }
+        }
+        
+        for try await (id, apr) in group {
+            userAPR[id] = apr
         }
     }
     
-    print("\ninvalidIds: \(invalidIds)")
+    return userAPR
+}
+
+Task {
+    let userAPRs = try await getAPRForAllUsers(ids: ids)
+    print("userAPRs: \(userAPRs)")
 }
