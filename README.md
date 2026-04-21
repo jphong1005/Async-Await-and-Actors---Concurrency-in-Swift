@@ -661,10 +661,9 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               </ul>
             </blockquote>
           </aside>
-          <br>
           <ul>
             <li>
-              <h4><code>async-let</code> 사용이유</h4>
+              <h4><code>async-let</code> 사용 이유</h4>
               <p>
                 여러 비동기 작업을 단순히 <code>await</code>로만 사용하게 될 경우, suspend를 통해 sequential하게 동작함으로써 총 작업의 소요 시간이 길어짐 <br>
                 <code>async-let</code>은 여러 비동기 작업을 concurrent하게 실행시킴으로써, 병렬성을 확보할 수 있음
@@ -708,7 +707,6 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               <p><strong>⭐ Task tree는 Structured Concurrency (구조적 동시성)의 핵심!</strong></p>
             </blockquote>
           </aside>
-          <br>
           <ul>
             <li>
               <h4>Task tree 특징</h4>
@@ -777,12 +775,76 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                   <br>
                   <aside class="tip">
                     <blockquote>
-                      <p>⭐ 이러한 <strong>"보장 (Guarantees)"은 구조적 동시성 (Structured Concurrency)의 근간!</strong></p>
+                      <p>⭐ 이러한 <strong>"보장 (Guarantees)"은 구조적 동시성 (Structured Concurrency)의 근간! <br>
+                      Task의 Lifetime 관리를 도와, 의도치 않은 Task leaks 방지</strong></p>
                     </blockquote>
                   </aside>
                 </figcaption>
               </figure>
               <br>
+            </li>
+          </ul>
+        </li>
+        <br>
+        <!-- Cancellation -->
+        <li>
+          <h3>Cancellation</h3>
+          <p><strong>Cancellation: 작업을 중지하고 부분적인 결과를 반환하거나 오류 발생 신호를 보낼 때 사용</strong></p>
+          <aside class="tip">
+            <blockquote>
+              <p>💡 작업의 결과가 더 이상 필요하지 않을 경우를 전제로 함</p>
+            </blockquote>
+          </aside>
+          <ul>
+            <li>
+              <h4>Cancellation is cooperative</h4>
+              <ul type="circle">
+                <li>
+                  <p>Task are <strong>not</strong> stopped immediately when cancelled</p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p>Structured Concurrency의 특성으로 Task는 cancel 되었을 때, 즉시 중단되지 않음</p>
+                    </blockquote>
+                  </aside>
+                </li>
+                <li>
+                  <p>Cancellation can be checked from anywhere</p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p>cancellation 여부를 명시적으로 확인하고 적절한 방법으로 Task를 종료해라</p>
+                    </blockquote>
+                  </aside>
+                </li>
+                <li>
+                  <p>Design your code with cancellation in mind</p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p>장시간 실행되는 계산이 포함된 API 구현 시, cancellation을 염두해라</p>
+                    </blockquote>
+                  </aside>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h4>Cancellation 종류</h4>
+              <ul type="circle">
+                <li>
+                  <p><code>Task.checkCancellation()</code>: THrows error only if cancelled</p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p>예외 (CancellationError)를 발생시키는 메서드를 호출하여 취소 여부 확인</p>
+                    </blockquote>
+                  </aside>
+                </li>
+                <li>
+                  <p><code>Task.isCancelled</code>: Return true only if cancelled</p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p>현재 작업의 취소 상태를 Bool 타입의 값으로 확인 + 특정한 핸들링 수행도 가능 (e.g. 분기 처리로 부분 값 얻기 등)</p>
+                    </blockquote>
+                  </aside>
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
