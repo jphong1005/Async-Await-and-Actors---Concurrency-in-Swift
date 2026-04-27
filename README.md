@@ -175,7 +175,8 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                         </blockquote>
                       </aside>
                     </li>
-                    <li>suspend: 스레드 제어권은 <strong>System에게 전달되고</strong>, System은 thread를 사용해 <strong>다른 작업을 수행 (우선순위가 높은 작업부터 처리)</strong>
+                    <li>suspend: 스레드 제어권은 <strong>System에게 전달되고</strong>, 
+                      System은 thread를 사용해 <strong>다른 작업을 수행 (우선순위가 높은 작업부터 처리)</strong>
                       <p></p>
                       <aside class="tip">
                         <blockquote>
@@ -236,15 +237,15 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
             <table>
               <tr>
                 <td align="center">
-                  <img src="https://github.com/user-attachments/assets/861f05ae-2972-4eb9-9e31-4086e8319a40" />
+                  <img src="https://github.com/user-attachments/assets/f38c9bc1-6c10-439a-9383-c8a8eef5401b" />
                   <p>MVC</p>
                 </td>
                 <td align="center">
-                  <img src="https://github.com/user-attachments/assets/388c39ec-8e55-420a-b7fb-0743e1793d69" />
+                  <img src="https://github.com/user-attachments/assets/cc0c8ee8-0dd4-45b0-8987-6964b76a1ae0" />
                   <p>MVP</p>
                 </td>
                 <td align="center">
-                  <img src="https://github.com/user-attachments/assets/6d7dadfd-e1e8-4e49-bb41-d8f78344f8d4" />
+                <img src="https://github.com/user-attachments/assets/e4a15a9f-ee24-424c-955e-6f148447b398" />
                   <p>MVVM</p>
                 </td>
               </tr>
@@ -712,26 +713,28 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               <h4>Task tree 특징</h4>
               <ul type="circle">
                 <li>
-                  <p>우선순위 상속: Task의 속성 (e.g. cancellation, priority, task-level variables, etc.)으로부터 영향을 받음</p>
+                  <p>Task의 속성 (e.g. cancellation, priority, task-level variables, etc.)에 영향을 미침</p>
                   <aside class="tip">
                     <blockquote>
-                      <p>즉, <strong>Child Task는 Parent Task로부터 속성들을 상속받음</strong></p>
+                      <p>즉, <strong>하위 Task는 상위 Task로부터 속성들을 상속받음 (Inheritance)</strong></p>
                     </blockquote>
                   </aside>
                 </li>
                 <li>
-                  <p>생명주기 자동관리: <strong>Child Task가 모두 finish 되어야 Parent Task도 finish됨</strong></p>
+                  <p>Parent Task와 Child Task는 links로 구성</strong></p>
                   <aside class="tip">
                     <blockquote>
-                      <ul type="circle">
-                        <li><strong>Parent와 Child는 Link 관계로 이루어져 있으며, 이는 Parent는 Child가 모두 끝난 후에야 작업을 마칠 수 있다는 rule을 강제함</strong></li>
-                        <li>만약 <strong>Child가 error를 냈다면 Parent는 암묵적 취소 상태</strong>, <strong>Child가 끝나지 않았다면 Parent는 대기 상태</strong>가 됨</li>
-                      </ul>
+                      <p>이는 <strong>Parent는 모든 Child가 finish 된 후에만 task를 finish 할 수 있다는 rule을 강제함</strong></p>
                     </blockquote>
                   </aside>
                 </li>
                 <li>
-                  <p>취소 전파: <strong>Parent가 취소되면, Child에 취소가 자동으로 전파됨</strong></p>
+                  <p>Parent가 cancel 되면, tree에 속한 모든 Child Task에 cancel을 자동으로 전파</p>
+                  <aside class="tip">
+                    <blockquote>
+                      <p><strong>Subtask가 모두 암묵적으로 취소됨 (Implicitly cancel)</strong></p>
+                    </blockquote>
+                  </aside>
                 </li>
               </ul>
             </li>
@@ -741,10 +744,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 <table>
                   <tr>
                     <td align="center">
-                      <img src="https://github.com/user-attachments/assets/d898e26b-cfe9-44cf-98e9-89ee07a35d38" />
-                    </td>
-                    <td align="center">
-                      <img src="https://github.com/user-attachments/assets/13379661-ae25-4bfb-b57d-6c5b3a82e047" />
+                      <img src="https://github.com/user-attachments/assets/5a4fde5f-1c66-44e2-9117-11ea1e0721bb" />
                     </td>
                     <td align="center">
                       <img src="https://github.com/user-attachments/assets/3dc8f77d-127b-4a59-816a-a398ce58fdb2" />
@@ -753,30 +753,21 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                 </table>
                 <figcaption>
                   <p>
-                    <code>metadata</code> Task를 await하는 과정에서 error가 발생되었다면, fetchOneThumbnail()은 그 error를 던지며 종료됨
+                    만약 <strong>Child Task에서 error가 발생되었다면, Parent Task는 cancelled 되면서 모든 subtask들도 자동으로 cancel 됨</strong>
                     <br><br>
-                    그러나, fetchOne()이 종료되면 두 번째 Task는?
-                    <br><br>
-                    👉 두번째 Child Task인 <code>try await UIImage(data: data)</code>는 <strong>Swift가 "자동으로 cancel을 표시"</strong>하고, 
-                    <br>
-                    &emsp; fetchOneThumbnail()을 종료하기 전에 해당 unawaited Task가 완료될 때까지 기다림
+                    즉, 함수가 비정상적인 방법으로 종료되었을 때, unawaited task를 <strong>자동으로 cancel로 표시</strong>하고 <strong>함수를 종료하기 전에
+                    </strong> 해당 <strong>unawaited task가 완료될 때까지 기다린 후 함수를 종료</strong>
                   </p>
                   <aside class="tip">
                     <blockquote>
-                      <p>Cancelled는 <strong>"결괏값이 필요 없어졌음"을 의미</strong>하는 것으로 <strong>Task를 중지하는 것은 아님</strong></p>
+                      <p></strong>Cancelled는 <strong>"결괏값이 필요 없어졌음"을 의미</strong>하는 것으로 <strong>Task를 중지하는 것은 아님</strong></p>
                     </blockquote>
                   </aside>
                   <br>
-                  <ul type="circle">
-                    <li>비정상적인 종료가 발생하면, unawaited task들을 자동으로 취소(Canceled) 상태로 표시</li>
-                    <li>상위 task가 cancel되면 하위 task도 자동으로 cancel</li>
-                    <li>상위 task가 finish 되려면, 반드시 하위 task가 finish 되어야함</li>
-                  </ul>
-                  <br>
                   <aside class="tip">
                     <blockquote>
-                      <p>⭐ 이러한 <strong>"보장 (Guarantees)"은 구조적 동시성 (Structured Concurrency)의 근간! <br>
-                      Task의 Lifetime 관리를 도와, 의도치 않은 Task leaks 방지</strong></p>
+                      <p>⭐ 이러한 <strong>"보장 (Guarantees)"은 구조적 동시성 (Structured Concurrency)의 근간으로<br>
+                      &emsp; Task의 Lifetime 관리를 도와, 의도치 않은 Task leaks 방지</strong></p>
                     </blockquote>
                   </aside>
                 </figcaption>
@@ -799,37 +790,16 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
             <li>
               <h4>Cancellation is cooperative</h4>
               <ul type="circle">
-                <li>
-                  <p>Task are <strong>not</strong> stopped immediately when cancelled</p>
-                  <aside class="tip">
-                    <blockquote>
-                      <p>Structured Concurrency의 특성으로 Task는 cancel 되었을 때, 즉시 중단되지 않음</p>
-                    </blockquote>
-                  </aside>
-                </li>
-                <li>
-                  <p>Cancellation can be checked from anywhere</p>
-                  <aside class="tip">
-                    <blockquote>
-                      <p>cancellation 여부를 명시적으로 확인하고 적절한 방법으로 Task를 종료해라</p>
-                    </blockquote>
-                  </aside>
-                </li>
-                <li>
-                  <p>Design your code with cancellation in mind</p>
-                  <aside class="tip">
-                    <blockquote>
-                      <p>장시간 실행되는 계산이 포함된 API 구현 시, cancellation을 염두해라</p>
-                    </blockquote>
-                  </aside>
-                </li>
+                <li><p>Task are <strong>not</strong> stopped immediately when cancelled</p></li>
+                <li><p>Cancellation can be checked from anywhere</p></li>
+                <li><p>Design your code with cancellation in mind</p></li>
               </ul>
             </li>
             <li>
               <h4>Cancellation 종류</h4>
               <ul type="circle">
                 <li>
-                  <p><code>Task.checkCancellation()</code>: THrows error only if cancelled</p>
+                  <p><code>Task.checkCancellation()</code>: Throws error only if cancelled</p>
                   <aside class="tip">
                     <blockquote>
                       <p>예외 (CancellationError)를 발생시키는 메서드를 호출하여 취소 여부 확인</p>
@@ -845,6 +815,133 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                   </aside>
                 </li>
               </ul>
+            </li>
+          </ul>
+        </li>
+        <br>
+        <!-- Group Tasks -->
+        <li>
+          <h3>Group Tasks</h3>
+          <p><strong>Group Tasks: 동적 (가변적)인 동시 처리량을 제공하도록 설계된 구조화된 동시 처리 방식</strong></p>
+          <aside class="tip">
+            <blockquote>
+              <p>⭐ Group Task는 <code>async let</code>보다 <strong>더 큰 유연성 제공과 구조적 동시성의 장점을 모두 유지</strong></p>
+            </blockquote>
+          </aside>
+          <ul>
+            <li>
+              <h4>Async-let의 문제점</h4>
+              <figure>
+                <img src="https://github.com/user-attachments/assets/11825da7-c9ab-4bf6-9332-ba40101369e4" />
+              </figure>
+              <figcaption>
+                <p>
+                  <code>async let</code>은 <strong>동시 처리량의 갯수가 고정적 (Fixed amount of concurrency)일 때 유용</strong>
+                  <br><br>
+                  만약, 여러 Child를 갖는 Parent의 갯수가 '가변적 (Dynamic amount of concurrency)이면서 동시에 수행하고자' 한다면 <strong>Group Task를 사용</strong>
+                </p>
+                <aside class="tip">
+                  <blockquote>
+                    <p>💡 즉, Fixed amount of concurrency (고정적인 동시성의 양)를 측정할 수 없다면, 
+                      <code>withThrowingTaskGroup()</code>으로 Task Group을 도입</p>
+                  </blockquote>
+                </aside>
+              </figcaption>
+            </li>
+            <li>
+              <h4>withThrowingTaskGroup()</h4>
+              <figure>
+                <table>
+                  <tr>
+                    <td align="center">
+                      <img src="https://github.com/user-attachments/assets/ad1100e9-f4ee-409b-b063-f5867a4ed068" />
+                    </td>
+                    <td align="center">
+                      <img src="https://github.com/user-attachments/assets/d4232cad-36c3-4250-811a-8b4e5a342930" />
+                    </td>
+                  </tr>
+                </table>
+              </figure>
+              <figcaption>
+                <p>Dynamic한 개수의 tasks를 group 기반으로 생성 가능하며, <strong>group 안에 추가된 Child Task들은 순서와 상관없이 random하게 즉시 실행됨</strong></p>
+                <aside class="tip">
+                  <blockquote>
+                    <p>💡 group이 scope를 벗어나면 group 내부에 존재하는 모든 task의 완료가 암묵적으로 대기됨</p>
+                  </blockquote>
+                </aside>
+              </figcaption>
+            </li>
+            <li>
+              <h4>withThrowingTaskGroup() 문제점</h4>
+              <figure>
+                <img src="https://github.com/user-attachments/assets/ac44c45e-4f38-4852-8976-783eab4aedc8" />
+              </figure>
+              <figcaption>
+                <p>
+                  thumbnails 접근 시, Data-race 문제가 발생
+                </p>
+                <ul type="circle">
+                  <li>Collection Types (Array, Set, Dictionary)은 struct로 구현된 값 타입(Value Type)으로 <strong>Thread-Safe 하지 않음</strong></li>
+                  <li>addTask()로 추가된 독립적인 Task가 하나의 공유 자원을 동시에 접근 시도</li>
+                  <li>Sendable 하지 않은 thumbnails 캡처 제한</li>
+                </ul>
+              </figcaption>
+            </li>
+            <li>
+              <h4>Data-race safety</h4>
+              <ul type="circle">
+                <li>Task creation takes a @Sendable closure</li>
+                <li>Cannot capture mutable variables</li>
+                <li>Should only capture value types, actors, or classes that implement their own synchronization</li>
+              </ul>
+              <p>
+                새로운 Task를 만들면 이는 <code>@Sendable</code> closure라는 새로운 closure type이 되고, 
+                @Sendable closure는 <strong>외부의 가변 변수 캡처가 불가능!</strong>
+              </p>
+              <aside class="tip">
+                <blockquote>
+                  <p>⭐ @Sendable closure는 Sendable 프로토콜을 준수하는 type만 캡처 가능</p>
+                  <ul type="circle">
+                    <li>값 타입 (Value Types)</li>
+                    <li>actors (여러 스레드에서 접근할 수 있도록 설계된 객체)</li>
+                    <li>classes (일반 class가 아닌, 자체 동기화를 구현한 thread-safe한 class)</li>
+                  </ul>
+                </blockquote>
+              </aside>
+            </li>
+            <li>
+              <h4>withThrowingTaskGroup()에서 Data-race 해결법</h4>
+              <figure>
+                <img src="https://github.com/user-attachments/assets/38cfae22-108e-4845-8cb3-038d57950706" />
+              </figure>
+              <figcaption>
+                <p><strong>Child Task는 독립적인 값을 return</strong>하고, <strong>Parent Task에서 for-await를 통해 group을 순회하면서 결과를 처리</strong></p>
+              </figcaption>
+            </li>
+            <li>
+              <h4>Group Task vs Async-let (Task tree rule 구현 관점)</h4>
+              <figure>
+                <img src="https://github.com/user-attachments/assets/c9da2f24-cf46-445c-aa37-c5b178c6e6ac" />
+              </figure>
+              <figcaption>
+                <p>만약 Group의 결과를 순회하는 for-await loop 안에서 error와 함께 완료된 Child Task가 발견되었다면?</p>
+                <aside class="tip">
+                  <blockquote>
+                    <p>error는 group의 block 외부로 thrown 됨</p>
+                  </blockquote>
+                </aside>
+                <ul type="circle">
+                  <li>공통점: 모든 하위 Task들이 implicitly cancel 된 후, (완료될 때까지) await 상태가 됨</li>
+                  <li>차이점: group이 scope를 벗어나 정상적으로 종료되었다면, 암묵적 취소가 일어나지 않으며 await 상태만 유지됨
+                    <p></p>
+                    <aside class="tip">
+                      <blockquote>
+                        <p>💡 group의 <code>cancelAll()</code>을 사용하여 block을 종료하기 전에 모든 task를 수동으로 취소할 수도 있음</p>
+                      </blockquote>
+                    </aside>
+                  </li>
+                </ul>
+              </figcaption>
             </li>
           </ul>
         </li>
