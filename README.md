@@ -146,7 +146,8 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               <p>🟣 <code>async</code> & <code>await</code> 의미</p>
               <ul type="circle">
                 <li><code>async</code>: <strong>함수가 비동기적임을 나타냄</strong></li>
-                <li><code>await</code>: <strong>비동기 함수 및 비동기 Context 내에서 다른 비동기 함수를 호출할 때 사용</strong><br></li>
+                <li><code>await</code>: <strong>비동기 함수 및 비동기 Context 내에서 다른 비동기 함수를 호출할 때 사용</strong></li>
+                <br>
               </ul>
               <br>
               <p>&emsp;&emsp; 비동기 context에는 <code>.task()</code>, <code>Task {}</code>, <code>async</code>함수 등이 존재</p>
@@ -532,8 +533,8 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                         <li>Straight-line code
                           <ul><li><strong>가독성 & 유지보수성 개선</strong></li></ul>
                         </li>
-                        <li> 안정성
-                          <ul type="circle"><li>Runtime 시, <strong>resume을 한 번만 호출했는지 Check</strong></li></ul>
+                        <li>안정성
+                          <ul><li>Runtime 시, <strong>resume을 한 번만 호출했는지 Check</strong></li></ul>
                         </li>
                       </ul>
                     </td>
@@ -637,7 +638,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
         <!-- Async-let Tasks -->
         <li>
           <h3>Async-let Tasks (= Async-let Binding / Concurrent Binding)</h3>
-          <p><strong><code>async let</code>: 여러 비동기 작업을 "동시에" 실행</strong></p>
+          <p><strong><code>async-let</code>: 여러 비동기 작업을 "동시에" 실행</strong></p>
           <aside class="tip">
             <blockquote>
               <p>💡 "동시"의 의미</p>
@@ -671,11 +672,11 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                   <tr>
                     <td align="center">
                       <img src="https://github.com/user-attachments/assets/fdadebef-f387-4497-b2be-88e1d4db652f" />
-                      <p>기존 Async의 동작 원리</p>
+                      <p>기존 Async</p>
                     </td>
                     <td align="center">
                       <img src="https://github.com/user-attachments/assets/b1a412f3-37d0-4bf9-a1b7-ca044dad82bd" />
-                      <p>Async-let의 동작 원리</p>
+                      <p>Async-let</p>
                     </td>
                   </tr>
                 </table>
@@ -683,7 +684,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                   <aside class="tip">
                     <blockquote>
                       <p>⭐ Sequential Bindings와 Concurrent Bindings의 가장 큰 차이는 <strong>실행의 흐름 갯수 차이!</strong></p>
-                      <p>&emsp; <code>async let</code>은 <strong>Child Task라는 새로운 하위 작업을 생성함</strong></p>
+                      <p>&emsp; <code>async-let</code>은 <strong>Child Task라는 새로운 하위 작업을 생성함</strong></p>
                     </blockquote>
                   </aside>
                 </figcaption>
@@ -762,8 +763,8 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               <br>
             </li>
           </ul>
+          <br>
         </li>
-        <br>
         <!-- Cancellation -->
         <li>
           <h3>Cancellation</h3>
@@ -801,15 +802,15 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               </ul>
             </li>
           </ul>
+          <br>
         </li>
-        <br>
         <!-- Group Tasks -->
         <li>
           <h3>Group Tasks</h3>
           <p><strong>Group Tasks: 동적 (가변적)인 동시 처리량을 제공하도록 설계된 구조화된 동시 처리 방식</strong></p>
           <aside class="tip">
             <blockquote>
-              <p>⭐ Group Task는 <code>async let</code>보다 <strong>더 큰 유연성 제공과 구조적 동시성의 장점을 모두 유지</strong></p>
+              <p>⭐ Group Task는 <code>async-let</code>보다 <strong>더 큰 유연성 제공과 구조적 동시성의 장점을 모두 유지</strong></p>
             </blockquote>
           </aside>
           <ul type="circle">
@@ -820,7 +821,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               </figure>
               <figcaption>
                 <p>
-                  <code>async let</code>은 <strong>동시 처리량의 갯수가 고정적 (Fixed amount of concurrency)일 때 유용</strong>
+                  <code>async-let</code>은 <strong>동시 처리량의 갯수가 고정적 (Fixed amount of concurrency)일 때 유용</strong>
                   <br><br>
                   만약, 여러 Child를 갖는 Parent의 갯수가 '가변적 (Dynamic amount of concurrency)이면서 동시에 수행하고자' 한다면 <strong>Group Task를 사용</strong>
                 </p>
@@ -886,7 +887,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                     <ul type="circle">
                       <li>값 타입 (Value Types)</li>
                       <li>actors (여러 스레드에서 접근할 수 있도록 설계된 객체)</li>
-                      <li>classes (일반 class가 아닌, 자체 동기화를 구현한 thread-safe한 class)</li>
+                      <li>classes (자체 동기화를 구현한 thread-safe한 class)</li>
                     </ul>
                   </blockquote>
                 </aside>
@@ -902,13 +903,13 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               </figcaption>
             </li>
             <li>
-              <h4>Group Task vs Async-let (Task tree rule 구현 관점)</h4>
+              <h4>Group Task vs Async-let</h4>
               <figure>
                 <img src="https://github.com/user-attachments/assets/b4dd8a74-4e5a-43b1-85a2-1011ed18272d" />
               </figure>
               <figcaption>
                 <p>만약 Group의 결과를 순회하는 for-await loop 안에서 error와 함께 완료된 Child Task가 발견되었다면, 그 error는 Group의 block 외부로 전달됨<br>
-                이 때, <code>async-let</code>과 Group Task의 공통점과 차이점은 다음과 같음</p>
+                이 때, <code>async-let</code>과 Group Task는 Task tree rule 구현 관점에서 아래와 같은 공통점과 차이점을 갖음</p>
                 <ul type="circle">
                   <li>
                     <p>공통점: 모든 Task들이 implicitly cancelled 된 후, awaited 상태가 됨</p>
@@ -935,12 +936,12 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               </figcaption>
             </li>
           </ul>
+          <br>
         </li>
-        <br>
         <!-- Unstructured Tasks -->
         <li>
           <h3>Unstructured Tasks</h3>
-          <p><strong>Unstructured Tasks: 실행흐름과 생명주기 (Lifetime)가 상위 scope에서 종속되지 않는 독립적인 Task</strong></p>
+          <p><strong>Unstructured Tasks: 선언된 위치와 상관없이 독립적인 생명주기 가지고 실행되는 비동기 Task</strong></p>
           <aside class="tip">
             <blockquote>
               <h4>💡 Not all tasks fit a structured pattern</h4>
@@ -952,7 +953,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
           </aside>
           <ul type="circle">
             <li>
-              <h4>Unstructured tasks 사용 예시</h4>
+              <h4>Creating an unstructured task</h4>
               <figure>
                 <img src="https://github.com/user-attachments/assets/fc39eadb-19cc-43e4-8881-022f7cfa5e6a" />
               </figure>
@@ -987,7 +988,7 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
                     <td>
                       <ul type="circle">
                         <li>실행 context의 actor, priority 등을 상속받음</li>
-                        <li>생명주기 (Lifetime)이 특정 scope에 국한되지 않음</li>
+                        <li>Lifetime이 특정 scope에 국한되지 않음</li>
                         <li>비동기 함수가 아닌 영역 (동기 context 내)에서도 실행 가능</li>
                       </ul>
                     </td>
@@ -1008,12 +1009,12 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
           </ul>
           <ul type="circle">
             <li>
-              <h4>Unstructured tasks 사용 예시 개선안</h4>
+              <h4>Cancelling unstructured tasks</h4>
               <figure>
                 <table>
                   <tr>
                     <td align="center">
-                      <img src="https://github.com/user-attachments/assets/5ee0d63b-9620-433f-8b59-65a6564fcb00" />
+                      <img src="https://github.com/user-attachments/assets/3384b5d7-43f8-4d76-91e3-41651039d563" />
                     </td>
                     <td align="center">
                       <img src="https://github.com/user-attachments/assets/35dbc066-12e3-401e-a67a-67a160868c28" />
@@ -1026,6 +1027,41 @@ Learn async/await, actors, async-let, task groups, unstructured concurrency, det
               </figcaption>
             </li>
           </ul>
+          <br>
+        </li>
+        <!-- Detached Tasks -->
+        <li>
+          <h3>Detached Tasks</h3>
+          <p><strong>Detached Tasks: Originating context에 종속되지 않는 독립적인 unstructured tasks</strong></p>
+          <aside class="tip">
+            <blockquote>
+              <h4>💡 Detached tasks</h4>
+              <ul type="circle">
+                <li>Unscoped lifetime, manually cancelled and awaited</li>
+                <li>Do not inherit anything from their originating context</li>
+                <li>Optional parameters control priority and other traits</li>
+              </ul>
+            </blockquote>
+          </aside>
+          <ul type="circle">
+            <li>
+              <h4>Creating a task group instide a detached task</h4>
+              <figure>
+                <img src="https://github.com/user-attachments/assets/7dd72751-0638-4771-aaa2-54b6ddf0b10b" />
+              </figure>
+              <figcaption>
+                <p>detached()를 통해 독립적인 Task를 생성한 후, 내부에 Structured tasks를 형성</p>
+              </figcaption>
+            </li>
+          </ul>
+          <br>
+        </li>
+        <!-- Summary -->
+        <li>
+          <h3>Summary</h3>
+          <figure>
+            <img src="https://github.com/user-attachments/assets/26a96f70-6347-4fff-a036-72a8cda734ba" />
+          </figure>
         </li>
       </ul>
     </section>
